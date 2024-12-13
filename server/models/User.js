@@ -7,18 +7,31 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
+
     },
     password: {
         type: String,
         required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String
+
+    },
+    roll: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
     }
 
 }, {
-    timestamp: true
+    timestamp: true,
 })
 
-const User = model ("User ", userSchema );
+const User = model("User ", userSchema);
 
-export default User ;
+export default User;
