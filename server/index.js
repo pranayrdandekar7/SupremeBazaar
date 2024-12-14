@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors"
 import dotenv from "dotenv"
 import { getHealth } from "./controllers/health.js";
+import { postSignup } from "./controllers/Auth.js";
 dotenv.config()
 
 const app = express()
@@ -21,6 +22,8 @@ const dbconnection = async () => {
 }
 
 app.get("/health" ,getHealth )
+
+app.post ("/signup" ,postSignup)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
