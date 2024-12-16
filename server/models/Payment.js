@@ -19,7 +19,7 @@ const paymentSchema = new Schema({
 
     status: {
         type: String,
-        defualt: "pending "
+        defualt: "pending"
     },
 
 },

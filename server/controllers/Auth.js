@@ -1,61 +1,117 @@
 import User from "../models/User.js"
 
 
-const postSignup = async  ( req,res)=>{
+const postSignup = async (req, res) => {
 
-    const {name,email,password,phone,address} = req.body 
+    const { name, email, password, phone, address ,rePassword } = req.body
 
-    const user = new User({
+    if (!name) {
+        return res.status(400).json({
+            success: false,
+            message: "name is required",
+
+        })
+    }
+    if (!email) {
+        return res .status(400).json({
+            success: false,
+            message: "email is required",
+
+        })
+    }
+    if (!password) {
+        return res.status(400).json({
+            success: false,
+            message: "password is required",
+
+        })
+    }
+
+    if (password !== rePassword ) {
+        return res.status(400).json({
+            success: false,
+            message: "password does not match",
+
+        })
+    }
+    if (!phone) {
+        return res.status(400).json({
+            success: false,
+            message: "phone is required",
+
+        })
+    }
+    if (!address) {
+        return res.status(400).json({
+            success: false,
+            message: "address is required",
+
+        })
+    }
+
+    try{
+
+    const newUser = new User({
         name,
         email,
         password,
         phone,
         address
     })
-    if (!name){
-        return res.json({
-            success:false,
-            message :"name is required",
 
-        })
-    }
-   else if (!email){
-        return res.json({
-            success:false,
-            message :"email is required",
-            
-        })
-    }
-    if (!password){
-        return res.json({
-            success:false,
-            message :"password is required",
-            
-        })
-    }
-    if (!phone){
-        return res.json({
-            success:false,
-            message :"phone is required",
-            
-        })
-    }
-    if (!address){
-        return res.json({
-            success:false,
-            message :"address is required",
+    const savedUser = await newUser.save();
 
-        })
-    }
-  
-    const savedUser = await user.save() ;
-
-    res.json({
-        success : true ,
-        message :"User Sign up successfully" ,
-        data : savedUser
+    res.status(201).json({
+        success: true,
+        message: "User Sign up successfully",
+        data: savedUser
     })
+}
+catch(err){
+    res.status(400).json({
+        success:false,
+        message:err.message
+    })
+}
 
 }
 
-    export {postSignup} ;
+const postLogin = async (req, res) => {
+
+    const { email, password } = req.body
+
+    if (!email) {
+        return res.status(400).json({
+            success: false,
+            message: "email is required"
+        })
+    }
+
+    if (!password) {
+        return res.status(400).json({
+            success: false,
+            message: "password is required"
+        })
+    }
+
+    const user = await User.findOne({
+        email,
+        password
+    })
+
+    if(!user){
+        return res.status(400).json({
+             success:false ,
+             message: "please sign up before log in "
+        })
+    }
+     
+    res.json ({
+        success: true,
+        message:"Log in successfully"
+    })
+
+
+}
+
+export { postSignup ,postLogin};

@@ -51,6 +51,25 @@ const orderSchema = new Schema({
         ref: "payment",
         required: true
     },
+    status: {
+        type: String,
+        default: "pending",
+    },
+    timeline: [{
+        status: {
+            type: String,
+            required: true
+        },
+        data: {
+            type: Date,
+            default: Date.now
+
+        },
+    },
+    ]
+
+}, {
+    timestamps: true
 })
 
 const Order = model("Order ", orderSchema);
