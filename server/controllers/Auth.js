@@ -1,5 +1,6 @@
 import User from "../models/User.js"
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 
 
 const postSignup = async (req, res) => {
@@ -101,11 +102,11 @@ const postLogin = async (req, res) => {
     }
 
     const user = await User.findOne({
-        email
+        email :email
     })
 
     if (!user) {
-        return res.status(400).json({
+        return res.status(403).json({
             success: false,
             message: "please sign up before logging in "
         })
@@ -114,14 +115,19 @@ const postLogin = async (req, res) => {
     const isPasswordMatch = bcrypt.compareSync(password, user.password);
 
     if(isPasswordMatch){
-        res.json({
+    //jwt token
+
+        const jwtToken =  jwt.sign ({ email:user.email }, process.env.JWT_SECRET);
+        // res.setHeader("Authorization" , `Bearer ${jwtToken}`)
+
+        res.status(200).json({
             success:true,
             message:'Login successfull',
-
+            token:jwtToken
         })
     }
     else{
-        res.json({
+        res.status(401).json({
             success:false,
             message:"Invalid Credentials"
         })
