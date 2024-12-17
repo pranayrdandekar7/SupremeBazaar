@@ -1,9 +1,10 @@
 import User from "../models/User.js"
+import bcrypt from "bcrypt";
 
 
 const postSignup = async (req, res) => {
 
-    const { name, email, password, phone, address ,rePassword } = req.body
+    const { name, email, password, phone, address, rePassword } = req.body
 
     if (!name) {
         return res.status(400).json({
@@ -13,7 +14,7 @@ const postSignup = async (req, res) => {
         })
     }
     if (!email) {
-        return res .status(400).json({
+        return res.status(400).json({
             success: false,
             message: "email is required",
 
@@ -27,7 +28,7 @@ const postSignup = async (req, res) => {
         })
     }
 
-    if (password !== rePassword ) {
+    if (password !== rePassword) {
         return res.status(400).json({
             success: false,
             message: "password does not match",
@@ -45,34 +46,39 @@ const postSignup = async (req, res) => {
         return res.status(400).json({
             success: false,
             message: "address is required",
-
         })
     }
+      const saltValue = parseInt(process.env.SALT)
+    const salt = bcrypt.genSaltSync (saltValue)
 
-    try{
+    try {
+        const newUser = new User({
+            name,
+            email,
+            phone,
+            address,
+            password: bcrypt.hashSync(password, salt),
+        })
 
-    const newUser = new User({
-        name,
-        email,
-        password,
-        phone,
-        address
-    })
+        const savedUser = await newUser.save();
 
-    const savedUser = await newUser.save();
-
-    res.status(201).json({
-        success: true,
-        message: "User Sign up successfully",
-        data: savedUser
-    })
-}
-catch(err){
-    res.status(400).json({
-        success:false,
-        message:err.message
-    })
-}
+        res.status(201).json({
+            success: true,
+            message: "User Sign up successfully",
+            data: {
+                name :savedUser.name,
+                email:savedUser.email,
+                phone:savedUser.phone,
+                address:savedUser.address
+            }
+        })
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: err.message
+        })
+    }
 
 }
 
@@ -95,23 +101,32 @@ const postLogin = async (req, res) => {
     }
 
     const user = await User.findOne({
-        email,
-        password
+        email
     })
 
-    if(!user){
+    if (!user) {
         return res.status(400).json({
-             success:false ,
-             message: "please sign up before log in "
+            success: false,
+            message: "please sign up before logging in "
         })
     }
-     
-    res.json ({
-        success: true,
-        message:"Log in successfully"
-    })
 
+    const isPasswordMatch = bcrypt.compareSync(password, user.password);
+
+    if(isPasswordMatch){
+        res.json({
+            success:true,
+            message:'Login successfull',
+
+        })
+    }
+    else{
+        res.json({
+            success:false,
+            message:"Invalid Credentials"
+        })
+    }
 
 }
-
-export { postSignup ,postLogin};
+  
+export { postSignup, postLogin };
