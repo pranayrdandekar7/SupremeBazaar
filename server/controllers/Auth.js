@@ -3,6 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 
 
+
+
+
 const postSignup = async (req, res) => {
 
     const { name, email, password, phone, address, rePassword } = req.body
@@ -49,8 +52,8 @@ const postSignup = async (req, res) => {
             message: "address is required",
         })
     }
-      const saltValue = parseInt(process.env.SALT)
-    const salt = bcrypt.genSaltSync (saltValue)
+    const saltValue = parseInt(process.env.SALT)
+    const salt = bcrypt.genSaltSync(saltValue)
 
     try {
         const newUser = new User({
@@ -67,10 +70,10 @@ const postSignup = async (req, res) => {
             success: true,
             message: "User Sign up successfully",
             data: {
-                name :savedUser.name,
-                email:savedUser.email,
-                phone:savedUser.phone,
-                address:savedUser.address
+                name: savedUser.name,
+                email: savedUser.email,
+                phone: savedUser.phone,
+                address: savedUser.address
             }
         })
     }
@@ -102,7 +105,7 @@ const postLogin = async (req, res) => {
     }
 
     const user = await User.findOne({
-        email :email
+        email: email
     })
 
     if (!user) {
@@ -114,25 +117,55 @@ const postLogin = async (req, res) => {
 
     const isPasswordMatch = bcrypt.compareSync(password, user.password);
 
-    if(isPasswordMatch){
-    //jwt token
+    if (isPasswordMatch) {
+        //jwt token
 
-        const jwtToken =  jwt.sign ({ email:user.email }, process.env.JWT_SECRET);
-        // res.setHeader("Authorization" , `Bearer ${jwtToken}`)
+        const jwtToken = jwt.sign({ email: user.email, role: user.roll }, process.env.JWT_SECRET);
+        res.setHeader("Authorization", `Bearer ${jwtToken}`)
 
         res.status(200).json({
-            success:true,
-            message:'Login successfull',
-            token:jwtToken
+            success: true,
+            message: 'Login successfull',
+            token: jwtToken
         })
     }
-    else{
+    else {
         res.status(401).json({
-            success:false,
-            message:"Invalid Credentials"
+            success: false,
+            message: "Invalid Credentials"
         })
     }
 
 }
-  
-export { postSignup, postLogin };
+
+//api for verify jwt token
+const getToken = async (req, res) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: "Unathorized"
+        })
+    }
+    const tokenValue = token.split(" ")[1];
+    try {
+        const decoded = jwt.verify(tokenValue, process.env.JWT_SECRET);
+
+        if (decoded) {
+            return res.json({
+                success: true,
+                message: "token is valid",
+                data: decoded
+            })
+        }
+    }
+    catch (err) {
+        res.status(401).json({
+            success: false,
+            message: "token is not valid"
+        })
+    }
+}
+
+export { postSignup, postLogin, getToken };
