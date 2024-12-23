@@ -4,8 +4,9 @@ import cors from "cors"
 import dotenv from "dotenv"
 import { getHealth } from "./controllers/health.js";
 import { postSignup, postLogin, getToken } from "./controllers/Auth.js";
+import {postProducts} from "./controllers/product.js";
 
-import jwt from "jsonwebtoken"
+import {jwtVerifyMiddleware} from "./middlewares/auth.js"
 
 dotenv.config()
 
@@ -24,31 +25,9 @@ const dbconnection = async () => {
     }
 }
 
-const jwtVerifyMiddleware = async (req, res, next) => {
-    const jwtToken = req.headers.authorization.split(" ")[1] ;
 
-    if (!jwtToken) {
-        return res.status(401).json({
-            success: false,
-            message: "jwt token is missing"
-        })
-    }
-    try {
-        const decoded = await jwt.verify(jwtToken, process.env.JWT_SECRET)
 
-        req.user = decoded ;
-
-        next() ;
-    }
-    catch(err) {
-        return res.status(401).json({
-            success: false,
-            message: "Invalid jwt token"
-        })
-    }
-}
-
-app.post("/order", jwtVerifyMiddleware,(req,res)=>{
+app.post("/order",jwtVerifyMiddleware,(req,res)=>{
 
     res.json({
         success:true,
@@ -60,6 +39,10 @@ app.get("/health", getHealth)
 
 app.post("/signup", postSignup)
 app.post("/login", postLogin)
+
+//product
+
+app.post("/products", postProducts)
 
 app.get("/test", getToken)
 
