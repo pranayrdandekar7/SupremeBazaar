@@ -11,13 +11,14 @@ const postProducts = async (req, res) => {
         tags } = req.body
 
 
-    const mandatoryFeilds = [name, shortDescription, longDescription, price, currentPrice, categories, images, tags]
+    const mandatoryFeilds = ["name", "shortDescription", "longDescription", "price", "categories", "images", ]
 
-    for (const fields of mandatoryFeilds) {
-        if (!fields) {
+    for (const field of mandatoryFeilds) {
+
+        if (!req.body[field]) {
             return res.status(400).json({
                 success: false,
-                message: 'All fields are mandatory'
+                message: `${field} is required`
             })
         }
     }
