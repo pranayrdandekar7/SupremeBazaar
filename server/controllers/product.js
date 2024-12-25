@@ -54,4 +54,26 @@ const postProducts = async (req, res) => {
     }
 }
 
-export { postProducts }
+
+const getProducts = async (req, res) => {
+      const {limit} = req.query
+
+      try{
+      const allProducts   = await Product.find().limit(parseInt(limit) || 12)
+
+      return res.status(200).json({
+            success: true,
+            message: 'Products retrieved successfully',
+            data: allProducts 
+        })
+      }
+      catch(err){
+        res.status(400).json({
+            success: false,
+            message: err.message
+        })
+      }
+      
+}
+
+export { postProducts ,getProducts}
