@@ -56,10 +56,14 @@ const postProducts = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
-      const {limit} = req.query
+      const {limit,search} = req.query
+      
 
       try{
-      const allProducts   = await Product.find().limit(parseInt(limit) || 12)
+      const allProducts   = await Product.find({
+        //  "name" : { $regex: /Ghost/, $options: 'i' } 
+       
+      }).limit(parseInt(limit) || 12)
 
       return res.status(200).json({
             success: true,

@@ -5,7 +5,7 @@ const orderSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: ture
+        required:true
     },
     products: [{
         productId: {
@@ -34,7 +34,7 @@ const orderSchema = new Schema({
 
     deliveryAddress: {
         type: String,
-        required: ture
+        required: true
     },
     phone: {
         type: String,
@@ -49,7 +49,7 @@ const orderSchema = new Schema({
     paymentId: {
         type: Schema.Types.ObjectId,
         ref: "payment",
-        required: true
+        
     },
     status: {
         type: String,
@@ -60,7 +60,7 @@ const orderSchema = new Schema({
             type: String,
             required: true
         },
-        data: {
+        date: {
             type: Date,
             default: Date.now
 

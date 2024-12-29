@@ -120,7 +120,7 @@ const postLogin = async (req, res) => {
     if (isPasswordMatch) {
         //jwt token
 
-        const jwtToken = jwt.sign({ email: user.email, role: user.roll }, process.env.JWT_SECRET);
+        const jwtToken = jwt.sign({ email: user.email, role: user.roll , _id:user._id }, process.env.JWT_SECRET);
         res.setHeader("Authorization", `Bearer ${jwtToken}`)
 
         res.status(200).json({
