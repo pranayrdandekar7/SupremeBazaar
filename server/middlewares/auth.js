@@ -14,7 +14,7 @@ const jwtVerifyMiddleware = async (req, res, next) => {
     try {
         const decoded = await jwt.verify(jwtToken,process.env.JWT_SECRET)
 
-        console.log("decoded",decoded)
+        // console.log("decoded",decoded)
 
         req.user = decoded;
 
