@@ -123,8 +123,44 @@ const putOrders = async (req, res) => {
 
 }
 
+const getOrderById =async (req, res) => {
+    const user = req.user ;
+    const { id } = req.params;
 
-export { postOrders, putOrders };
+    let order;
+    try {
+        order = await Order.findById(id) 
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found "
+            })
+        }
+    }
+    catch (err) {
+        return res.status(400).json({
+            success: false,
+            message: err.message
+        })
+    }
+
+    if (user.role !== "admin" && order.userId!= user._id) {
+        return res.status(401).json({
+            success: false,
+            message: "You are not athorized to view this order",
+            data: null
+        })
+    }
+    return res.status(200).json({
+        success: true,
+        message: "Order fetched successfully",
+        data: order
+    })
+ 
+}
+
+
+export { postOrders, putOrders ,getOrderById };
 
 
 
