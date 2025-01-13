@@ -26,18 +26,8 @@ const dbconnection = async () => {
     }
 }
 
-
-
-app.post("/order",jwtVerifyMiddleware,(req,res)=>{
-
-    res.json({
-        success:true,
-        message:"order place successfully"
-    })
-})
-
 app.get("/health", getHealth)
-
+//auth
 app.post("/signup", postSignup)
 app.post("/login", postLogin)
 //product

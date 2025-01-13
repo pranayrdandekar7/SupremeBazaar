@@ -129,7 +129,7 @@ const getOrderById =async (req, res) => {
 
     let order;
     try {
-        order = await Order.findById(id) 
+        order = await Order.findById(id).populate("userId" ,"name email")
         if (!order) {
             return res.status(404).json({
                 success: false,
@@ -144,7 +144,8 @@ const getOrderById =async (req, res) => {
         })
     }
 
-    if (user.role !== "admin" && order.userId!= user._id) {
+    if (user._id !== order.userId && user.role !== "admin") {
+
         return res.status(401).json({
             success: false,
             message: "You are not athorized to view this order",

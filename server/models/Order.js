@@ -5,15 +5,14 @@ const orderSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required:true
+        required: true
     },
     products: [{
         productId: {
             type: Schema.Types.ObjectId,
-            ref: "product",
+            ref: "Product",
             required: true
         },
-
         quantity: {
             type: Number,
             required: true
@@ -22,8 +21,8 @@ const orderSchema = new Schema({
         price: {
             type: Number,
             required: true
-        }
-    }
+        },
+    },
     ],
 
     totalBill: {
@@ -49,7 +48,7 @@ const orderSchema = new Schema({
     paymentId: {
         type: Schema.Types.ObjectId,
         ref: "payment",
-        
+
     },
     status: {
         type: String,
@@ -66,7 +65,7 @@ const orderSchema = new Schema({
 
         },
     },
-    ]
+    ],
 
 }, {
     timestamps: true

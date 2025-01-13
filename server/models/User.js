@@ -13,7 +13,6 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        unique: true,
         required: true
     },
     phone: {
@@ -34,6 +33,7 @@ const userSchema = new Schema({
    timestamps:true
 })
 
-const User = model("User ", userSchema);
+const User = model("User", userSchema);
 
 export default User;
+
