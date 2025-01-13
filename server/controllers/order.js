@@ -123,16 +123,16 @@ const putOrders = async (req, res) => {
 
 }
 
-const getOrderById =async (req, res) => {
-    const user = req.user ;
+const getOrderById = async (req, res) => {
+    const user = req.user;
     const { id } = req.params;
 
     let order;
     try {
-        order = await Order.findById(id).populate("userId" ,"name email") .populate(
+        order = await Order.findById(id).populate("userId", "name email").populate(
             "products.productId",
             "-shortDescription -longDescription -image -category -tags -__v -createdAt -updatedAt"
-          )
+        )
         if (!order) {
             return res.status(404).json({
                 success: false,
@@ -160,17 +160,20 @@ const getOrderById =async (req, res) => {
         message: "Order fetched successfully",
         data: order
     })
- 
+
 }
 
 
 const getOrderByUserId = async (req, res) => {
 
-    const user = req.user ;
-    const {id} =  req.params
+    const user = req.user;
+    const { id } = req.params
     let orders;
     try {
-        orders = await Order.find({userId:id })
+        orders = await Order.find({ userId: id }).populate("userId", "name email").populate(
+            "products.productId",
+            "-shortDescription -longDescription -image -category -tags -__v -createdAt -updatedAt"
+        )
         if (!orders) {
             return res.status(404).json({
                 success: false,
@@ -185,7 +188,7 @@ const getOrderByUserId = async (req, res) => {
         })
     }
 
-    if (user.role != "admin" && user._id != id){
+    if (user.role != "admin" && user._id != id) {
         return res.status(401).json({
             success: false,
             message: "You are not athorized to view this order",
@@ -193,7 +196,7 @@ const getOrderByUserId = async (req, res) => {
         })
     }
 
-    
+
     return res.status(200).json({
         success: true,
         message: "Orders fetched successfully",
@@ -203,7 +206,7 @@ const getOrderByUserId = async (req, res) => {
 }
 
 
-export { postOrders, putOrders ,getOrderById ,getOrderByUserId};
+export { postOrders, putOrders, getOrderById, getOrderByUserId };
 
 
 
