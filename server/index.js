@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import { getHealth } from "./controllers/health.js";
 import { postSignup, postLogin, getToken } from "./controllers/Auth.js";
 import {postProducts,getProducts} from "./controllers/product.js";
-import {postOrders ,putOrders ,getOrderById} from "./controllers/order.js";
+import {postOrders ,putOrders ,getOrderById ,getOrderByUserId} from "./controllers/order.js";
 
 import {jwtVerifyMiddleware,checkRoleMiddleware} from "./middlewares/auth.js"
 
@@ -37,6 +37,7 @@ app.get("/products",getProducts)
 app.post("/orders",jwtVerifyMiddleware,postOrders)
 app.put("/orders/:id",jwtVerifyMiddleware,putOrders)
 app.get("/orders/:id",jwtVerifyMiddleware ,getOrderById)
+app.get("/orders/user/:id",jwtVerifyMiddleware , getOrderByUserId)
 
 app.get("/test", getToken)
 
