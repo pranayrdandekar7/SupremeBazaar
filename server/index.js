@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import cors from "cors"
 import dotenv from "dotenv"
 import { getHealth } from "./controllers/health.js";
-import { postSignup, postLogin, getToken } from "./controllers/Auth.js";
+import { postSignup, postLogin, getToken } from "./controllers/auth.js";
 import {postProducts,getProducts} from "./controllers/product.js";
 import {postOrders ,putOrders ,getOrderById ,getOrderByUserId} from "./controllers/order.js";
+import {postPayments} from "./controllers/payment.js";
 
 import {jwtVerifyMiddleware,checkRoleMiddleware} from "./middlewares/auth.js"
+
 
 dotenv.config()
 
@@ -38,6 +40,9 @@ app.post("/orders",jwtVerifyMiddleware,postOrders)
 app.put("/orders/:id",jwtVerifyMiddleware,putOrders)
 app.get("/orders/:id",jwtVerifyMiddleware ,getOrderById)
 app.get("/orders/user/:id",jwtVerifyMiddleware , getOrderByUserId)
+//payments
+
+app.post ("/payments",postPayments)
 
 app.get("/test", getToken)
 
