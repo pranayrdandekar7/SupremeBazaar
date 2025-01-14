@@ -132,7 +132,7 @@ const getOrderById = async (req, res) => {
         order = await Order.findById(id).populate("userId", "name email").populate(
             "products.productId",
             "-shortDescription -longDescription -image -category -tags -__v -createdAt -updatedAt"
-        )
+        ) .populate("paymentId", "-__v -createdAt -updatedAt");
         if (!order) {
             return res.status(404).json({
                 success: false,
@@ -173,7 +173,7 @@ const getOrderByUserId = async (req, res) => {
         orders = await Order.find({ userId: id }).populate("userId", "name email").populate(
             "products.productId",
             "-shortDescription -longDescription -image -category -tags -__v -createdAt -updatedAt"
-        )
+        ) .populate("paymentId", "-__v -createdAt -updatedAt");
         if (!orders) {
             return res.status(404).json({
                 success: false,
