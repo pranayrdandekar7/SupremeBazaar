@@ -96,8 +96,6 @@ const putOrders = async (req, res) => {
             order.deliveryAddress = req.body.deliveryAddress;
         }
 
-
-
         if (user.role === "admin") {
             if (req.body.status) order.status = req.body.status;
             if (req.body.timeline) order.timeline = req.body.timeline;
