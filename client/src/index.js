@@ -4,20 +4,34 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './views/Home/Home';
 
+import Signup from './views/Signup/Signup';
+import Login from './views/Login/Login';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<Home/>,
-
+    element: <Home />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />
+  },
+  {
+    path: "/login",
+    element: <Login />
   },
   {
     path: "*",
-    element: <h1> 404 Page not found</h1>,
-    
+    element: <h1> 404 Page not found</h1>
   }
+
 ])
-root.render( <RouterProvider router ={router}/>);
+root.render(
+  <div className="bg-zinc-100 min-h-screen">
+    <RouterProvider router={router} />
+  </div>
+)
 
