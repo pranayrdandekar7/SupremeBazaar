@@ -3,7 +3,8 @@ import React from 'react'
 const InputBox = ({ label, val, onChange, placeholder = "", type = "text" }) => {
     return (
         <div>
-            <label for={label}>{label} :</label>
+            <form>
+            <label htmlFor={label}>{label} :</label>
             <input
                 type={type}
                 placeholder={placeholder}
@@ -12,6 +13,7 @@ const InputBox = ({ label, val, onChange, placeholder = "", type = "text" }) => 
                 value={val}
                 onChange={(e) => onChange(e.target.value)}
             />
+            </form>
         </div>
 
     )

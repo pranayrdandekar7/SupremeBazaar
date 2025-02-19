@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors"
 import dotenv from "dotenv"
+dotenv.config()
 import { getHealth } from "./controllers/health.js";
 import { postSignup, postLogin, getToken } from "./controllers/auth.js";
 import {postProducts,getProducts} from "./controllers/product.js";
@@ -9,9 +10,6 @@ import {postOrders ,putOrders ,getOrderById ,getOrderByUserId} from "./controlle
 import {postPayments} from "./controllers/payment.js";
 
 import {jwtVerifyMiddleware,checkRoleMiddleware} from "./middlewares/auth.js"
-
-
-dotenv.config()
 
 const app = express()
 

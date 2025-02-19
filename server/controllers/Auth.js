@@ -74,6 +74,15 @@ const postSignup = async (req, res) => {
         })
     }
     catch (err) {
+        console.log(err)
+        if(err.message.includes("duplicate key error")){
+            return res.status(409).json({
+                success: false,
+                message: `${Object.keys(err.keyValue)} '${Object.values(err.keyValue)}' already exists`,
+
+            })
+        }
+        
         res.status(400).json({
             success: false,
             message: err.message
