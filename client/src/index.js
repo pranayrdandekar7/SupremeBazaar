@@ -6,6 +6,7 @@ import Home from './views/Home/Home';
 
 import Signup from './views/Signup/Signup';
 import Login from './views/Login/Login';
+import Dashboard from './views/Dashboard/Dashboard';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,8 +25,12 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
+    path: "/dashboard",
+    element: <Dashboard />
+  },
+  {
     path: "*",
-    element: <h1> 404 Page not found</h1>
+    element: <h1> 404 Page not found </h1>
   }
 
 ])
