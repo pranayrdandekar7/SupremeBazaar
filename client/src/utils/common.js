@@ -8,4 +8,22 @@ const getCurrentUser = () => {
     return JSON.parse(user);
   };
 
-  export {getCurrentUser}
+  const getJwtToken = ( ) => {
+    const token = localStorage.getItem("e-commerce-token");
+     
+    if(!token) {
+      return null;
+      
+    }
+    return JSON.parse `Bearer ${token}`;
+  }
+
+  const logout =() =>{
+    localStorage.clear();
+
+    setTimeout(() =>{
+      window.location.href = "/login";
+    } ,3000)
+  }
+
+  export {getCurrentUser ,getJwtToken ,logout}

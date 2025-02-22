@@ -70,9 +70,9 @@ const Signup = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center justify-center px-5">
-        <h1 className="text-3xl mb-4 text-gray-600">Signup</h1>
+        <h1 className="text-3xl mb-2 text-gray-600">Signup</h1>
 
-        <div className="w-full md:w-[450px] bg-white rounded-2xl shadow-lg hover:shadow-xl px-10 py-6">
+        <div className="w-full md:w-[450px] bg-white rounded-2xl shadow-lg hover:shadow-xl px-10 py-5">
           <InputBox
             label={"Name"}
             val={signupData.name}
