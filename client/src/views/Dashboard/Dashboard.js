@@ -12,7 +12,7 @@ import {   LogOut as LogOutIcon,
 
 const UserDetailRow = ({ icon, value }) => {
   return (
-    <p className="flex items-center mb-4 text-xl">
+    <p className="flex items-center mb-3 text-xl">
       {icon} <span className="ms-4">{value}</span>
     </p>
   );
@@ -48,12 +48,12 @@ const Dashboard = () => {
           <h2 className='text-2xl text-center pt-10'>Welcome to your dashboard</h2>
           <p className='text-center text-blue-500'>Here you can manage your products, orders, and more.</p>
         </div>
-        <div className='bg-white w-[500px] mx-auto px-10 pb-10 rounded-lg shadow-lg mt-10 '>
+        <div className='bg-white w-[500px] mx-auto px-10 pb-10 rounded-lg shadow-lg mt-10 md:w-[200px] '>
 
-          <div>
+          <div className="flex ">
             <Link
               to="/user/orders"
-              className="block text-center text-md mx-1 bg-blue-100 p-2"
+              className="block text-center text-md mx-2 bg-blue-100 p-2 my-4 rounded-lg"
             >
               <TruckIcon className="mx-auto inline" size={24} />
               <span className="ms-2">My Orders</span>
@@ -61,7 +61,7 @@ const Dashboard = () => {
 
             <Link
               to="/user/orders"
-              className="block text-center text-md mx-1 bg-blue-100 p-2"
+              className="block text-center text-md mx-2 bg-blue-100 p-2 my-4 rounded-lg"
             >
               <TruckIcon className="mx-auto inline" size={24} />
               <span className="ms-2">My Orders</span>
@@ -69,7 +69,7 @@ const Dashboard = () => {
 
             <Link
               to="/user/orders"
-              className="block text-center text-md mx-1 bg-blue-100 p-2"
+              className="block text-center text-md mx-2 bg-blue-100 p-2 my-4 rounded-lg"
             >
               <TruckIcon className="mx-auto inline" size={24} />
               <span className="ms-2">My Orders</span>
