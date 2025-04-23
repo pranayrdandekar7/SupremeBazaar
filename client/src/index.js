@@ -7,6 +7,7 @@ import Home from './views/Home/Home';
 import Signup from './views/Signup/Signup';
 import Login from './views/Login/Login';
 import Dashboard from './views/Dashboard/Dashboard';
+import UserOrders from "./views/UserOrders/UserOrders"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />
+  },
+  {
+    path: "/user/orders",
+    element: <UserOrders/>
   },
   {
     path: "*",

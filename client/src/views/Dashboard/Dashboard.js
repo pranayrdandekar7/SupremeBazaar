@@ -48,7 +48,7 @@ const Dashboard = () => {
           <h2 className='text-2xl text-center pt-10'>Welcome to your dashboard</h2>
           <p className='text-center text-blue-500'>Here you can manage your products, orders, and more.</p>
         </div>
-        <div className='bg-white w-[500px] mx-auto px-10 pb-10 rounded-lg shadow-lg mt-10 md:w-[200px] '>
+        <div className='bg-white w-[500px] mx-auto px-10 pb-10 rounded-lg shadow-lg mt-10 md:w-[400px] '>
 
           <div className="flex ">
             <Link
@@ -80,7 +80,7 @@ const Dashboard = () => {
         <UserDetailRow icon={<MailIcon />} value={user?.email} />
         <UserDetailRow icon={<RoleIcon />} value={user?.role} />
 
-        <button
+        <button 
           type="button"
           className="mx-auto block bg-red-500 text-white px-4 py-2 mt-4 rounded-md"
           onClick={() => {

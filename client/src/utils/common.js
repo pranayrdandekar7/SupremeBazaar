@@ -9,13 +9,14 @@ const getCurrentUser = () => {
   };
 
   const getJwtToken = ( ) => {
-    const token = localStorage.getItem("e-commerce-token");
+    const token = localStorage.getItem("e-commerce-user-token");
+    
      
     if(!token) {
       return null;
       
     }
-    return JSON.parse `Bearer ${token}`;
+    return  `bearer ${token}`;
   }
 
   const logout =() =>{
