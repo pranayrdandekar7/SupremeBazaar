@@ -55,18 +55,25 @@ const UserOrders = () => {
         loadUserOrders();
     }, [user])
 
+     const [isDialogueOpen ,setIsDialogueOpen] = useState(false)
 
-    const OrderviewDialogue = ({ isOpen ,OnClose }) => {
+    const OrderviewDialogue = ({ isOpen, OnClose }) => {
+
+        if (!isOpen) return null ;
+
         return (
-            <div className="min-h-screen bg-gray-700 fixed left-0 top-0 w-full bg-opacity-75 z-50 flex justify-center items-center"> 
-                <div className="bg-white w-1/2 h-96  rounded-lg relative"> 
-                <button className="text-red-500 font-bold  absolute right-2 top-1">Close</button>
-                
+            <div className="min-h-screen bg-gray-700 fixed left-0 top-0 w-full bg-opacity-75 z-50 flex justify-center items-center">
+                <div className="bg-white w-1/2 h-96  rounded-lg relative">
+                    <button className="text-red-500 font-bold  absolute right-2 top-1 " onClick={OnClose}>Close
+                    </button>
+
                 </div>
 
             </div>
         )
-    }
+    } 
+
+
 
     return (
         <div>
@@ -77,13 +84,13 @@ const UserOrders = () => {
                 {
                     orders.map((order) => {
 
-                        return <OrderCard key={order._id} order={order} />
+                        return <OrderCard key={order._id} order={order} onClick={()=>setIsDialogueOpen(true)} />
 
                     })
                 }
 
             </div>
-            <OrderviewDialogue />
+            <OrderviewDialogue isOpen={isDialogueOpen} OnClose={()=>setIsDialogueOpen(false)}/>
 
             <Toaster />
         </div>
