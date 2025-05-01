@@ -11,7 +11,7 @@ const ReadableTImeStamp = (date) => {
 const OrderCard = ({ order ,onClick}) => {
 
     const { _id, status, products, createdAt, totalBill, deliveryAddress } = order
-    console.log(order)
+   
     return (
         <div className='m-4 p-4 bg-white rounded-lg relative'  onClick={onClick}>
             <p>Order ID:{_id} , Order On : {ReadableTImeStamp(createdAt)}</p>
