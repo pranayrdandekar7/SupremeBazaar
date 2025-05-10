@@ -58,7 +58,6 @@ const postProducts = async (req, res) => {
 const getProducts = async (req, res) => {
       const {limit,search} = req.query
       
-
       try{
       const allProducts   = await Product.find({
         //  "name" : { $regex: /Ghost/, $options: 'i' } 
