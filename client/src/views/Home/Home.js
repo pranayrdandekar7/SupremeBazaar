@@ -25,13 +25,15 @@ function Home() {
 
 
   return (
-     < div className="text-center">this is  Home page  
+     < div >  
+     <div className='flex flex-wrap justify-center'>
      {
       products.map ((product)=>{
         return <ProductCard key={product._id} {...product}/>
       })
      } 
      <Toaster/>
+     </div>
      </div>
   )
 }
