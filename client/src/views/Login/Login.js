@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputBox from "./../../components/InputBox/InputBox";
 import axios from "axios";
-import Button from "../../components/Butoon/Button";
+import Button from "../../components/Button/Button";
 import toast, { Toaster } from "react-hot-toast"
 import { getCurrentUser } from "../../utils/common";
 import { Link } from "react-router-dom";

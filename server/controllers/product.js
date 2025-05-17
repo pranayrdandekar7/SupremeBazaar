@@ -56,13 +56,35 @@ const postProducts = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
-      const {limit,search} = req.query
+      const {limit} = req.query
+
+        let { search } = req.query;
+
+      search = search.replaceAll("\\", "");
       
       try{
       const allProducts   = await Product.find({
-        //  "name" : { $regex: /Ghost/, $options: 'i' } 
-       
-      }).limit(parseInt(limit) || 12)
+        $or: [
+      {
+        name: {
+          $regex: new RegExp(search || ""),
+          $options: "i",
+        },
+      },
+      {
+        shortDescription: {
+          $regex: new RegExp(search || ""),
+          $options: "i",
+        },
+      },
+      {
+        longDescription: {
+          $regex: new RegExp(search || ""),
+          $options: "i",
+        },
+      },
+    ],
+  }).limit(parseInt(limit) || 12)
 
       return res.status(200).json({
             success: true,

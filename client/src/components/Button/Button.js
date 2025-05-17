@@ -16,11 +16,11 @@ const Button = ({ label, onClick, variant }) => {
     <button
       type="button"
       onClick={onClick}
-      className={`px-6 py-2 rounded-lg ${BTN_STYLES[variant]}`}
+      className={`px-4 py-1 rounded-lg ${BTN_STYLES[variant]}`}
     >
       {label}
     </button>
   )
 }
 
-export default Button
+export default Button ;
