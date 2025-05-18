@@ -7,7 +7,7 @@ function Home() {
 
   const [products ,setProducts] = useState ([])
   const [search ,setSearch] = useState("")
-    console.log(products)
+    // console.log(products)
   const loadProducts = async() =>{
     try{
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/products?limit=12&search=${search}`)

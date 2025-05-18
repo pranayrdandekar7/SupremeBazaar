@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
-import { ChevronLeft as LeftArrowIcon, ChevronRight as RightArrowIcon } from "lucide-react"
+import {
+    ChevronLeft as LeftArrowIcon,
+    ChevronRight as RightArrowIcon,
+    Plus as PlusIcon,
+    Minus as MinusIcon
+} from "lucide-react"
 import Button from '../Button/Button';
 
 const ProductCard = ({
@@ -13,6 +18,7 @@ const ProductCard = ({
     images }) => {
 
     const [currentImage, setCurrentImage] = useState(images[0]);
+    const [quantity ,setQuantity] = useState(1)
 
     const leftArrowClick = () => {
         const currentIndex = images.indexOf(currentImage);
@@ -25,6 +31,7 @@ const ProductCard = ({
         const newIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
         setCurrentImage(images[newIndex])
     }
+    
     return (
 
         <div className='bg-white shadow-lg rounded-lg m-5 px-3 py-2 overflow-hidden w-[300px] h-[370px] relative '>
@@ -43,7 +50,7 @@ const ProductCard = ({
             <p className='mt-1'>
                 {tags.map((tag) => {
                     return (
-                        <span className="bg-gray-200 text-gray-500 px-3 py-1 text-xs rounded-full mr-2 cursor-pointer ">
+                        <span key={tag} className="bg-gray-200 text-gray-500 px-3 py-1 text-xs rounded-full mr-2 cursor-pointer ">
                             {tag}
                         </span>
                     );
@@ -60,12 +67,23 @@ const ProductCard = ({
             <p className='mt-2'>
                 <del> ₹ {price}</del> <span className='font-bold'>{currentPrice} /-</span>
             </p>
+            <div className='flex w-[100px] items-center  justify-around  mx-auto mt-1'>
+                <MinusIcon size={26} className=" cursor-pointer" onClick={()=>{
+                    setQuantity(quantity - 1)
+                }} />
+                <span className='text-2xl'> {quantity}</span>
+                <PlusIcon size={26} className=" cursor-pointer" onClick={()=>{
+                    setQuantity( quantity + 1)
+                }} />
 
-                 <div className=" absolute bottom-3 left-1/3">
+
+            </div>
+
+            <div className=" absolute bottom-3 left-1/3">
                 <Button
                     label="Add To Cart"
                     variant="primary"
-                     />
+                />
             </div>
 
         </div>
