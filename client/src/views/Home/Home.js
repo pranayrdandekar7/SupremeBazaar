@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast"
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { ShoppingCart as CartIcon } from "lucide-react"
 import { Link } from 'react-router-dom'
+import header_img from "./header-img.png"
 
 function Home() {
 
@@ -29,7 +30,8 @@ function Home() {
 
   return (
     < div >
-      <div className="flex justify-center py-10">
+    <img src={header_img} alt='header-img' className='h-[350px] d-block mx-auto m-0'/>
+      <div className="flex justify-center pb-5">
         <input
           type="text"
           placeholder="Search products"

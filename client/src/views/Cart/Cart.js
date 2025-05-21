@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
+import Button from '../../components/Button/Button';
 
 const Cart = () => {
 
     const [cart, setCart] = useState([]);
+    const [total, setTotal] = useState(0);
     console.log(cart)
 
     const loadCard = () => {
@@ -11,6 +14,18 @@ const Cart = () => {
         setCart(storedCard);
 
     }
+
+    useEffect(() => {
+        let totalValue = 0;
+
+        cart.forEach((product) => {
+            totalValue += product.quantity * product.price;
+        })
+        setTotal(totalValue)
+
+    }, [cart])
+
+
     useEffect(() => {
         loadCard()
     }, [])
@@ -22,11 +37,14 @@ const Cart = () => {
             cart.splice(indexOfProduct, 1);
             localStorage.setItem("cart", JSON.stringify(cart))
             loadCard();
+            toast.success("Product Removed From Cart")
         }
     }
+
+
     return (
         <div>
-            <h1 className='text-4xl text-center py-10'> My Cart</h1>
+            <h1 className='text-4xl text-center py-10 font-bold'> My Cart</h1>
 
             <div className='flex flex-col flex-wrap items-center overflow-hidden  '>
 
@@ -46,15 +64,23 @@ const Cart = () => {
                                     <p className='text-lg'> ₹{price} /-  </p>
                                     <p className='text-lg'> Quantity : {quantity}</p>
                                     <p className='text-lg'> Total Amount {price * quantity} /-</p>
+
                                 </div>
-                                <button className='absolute top-1 right-2 text-white text-sm bg-red-500 p-1 rounded-full'
-                                    onClick={() => RemoveFromCart(productId)}>Remove from Cart
+                                <button className='absolute top-1 right-2 text-white text-sm bg-red-500 hover:bg-red-700 over px-2 py-0.5  rounded-full'
+                                    onClick={() => RemoveFromCart(productId)} >Remove From Cart
                                 </button>
+
+
                             </div>
                         )
                     })
                 }
             </div>
+            <div className='flex justify-center items-center'>
+               <span className='text-3xl text-center m-5'>Total : ₹ {total} /-</span>
+               <button className='bg-blue-500  hover:bg-blue-700 px-3 py-2 rounded-lg text-white ]'>Click To Place Order</button>
+               </div>
+               <Toaster/>
         </div>
     )
 }
